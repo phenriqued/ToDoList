@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import phenriqued.ToDoList.DTOs.ToDoDTO.TaskRequestDTO;
 
 @Entity(name = "TaskEntity")
 @Table(name = "tb_task")
@@ -25,4 +26,9 @@ public class TaskEntity {
     @Setter
     private Boolean favorite;
 
+    public TaskEntity(TaskRequestDTO task) {
+        this.text = task.task();
+        this.done = false;
+        this.favorite = false;
+    }
 }
