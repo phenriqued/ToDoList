@@ -11,3 +11,44 @@ body {
     justify-content: center;
     min-height: 100vh;
   }
+
+div.tituloTarefa{
+      position: absolute;
+      top: 50px;
+}
+
+.container {
+    text-align: center;
+    width: 80%;
+    max-width: 700px;
+}
+.plus-icon {
+    background:none;
+    border:none;
+    font-size: 25px;
+    color: #007bff;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.input-container {
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 700px;
+
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 25px;
+    padding: 10px 15px;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+  }
+#input-task{
+   border: none;
+   outline: none;
+   flex-grow: 1;
+   font-size: 16px;
+}
