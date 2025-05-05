@@ -7,7 +7,6 @@
     });
 
     //adicionando evento ao clicar ou pressionar enter para adicionar uma tarefa.
-    document.addEventListener("DOMContentLoaded", function () {
         const input = document.getElementById("input-task");
         const button = document.getElementById("btn-add");
         const lista = document.getElementById("lista-tasks");
@@ -23,21 +22,16 @@
                 },
                 body: JSON.stringify({ task })
             })
-            .then(response => response.json())
-            .then(tarefa => {
-                const li = document.createElement("li");
-                li.textContent = tarefa.task;
-                lista.appendChild(li);
-                input.value = "";
-            })
-            .catch(error => console.error("Erro ao adicionar tarefa:", error));
+            .then(response => {
+                   input.value = "";
+                   window.location.href = "/ToDoList";})
+            .catch(err => console.error("Erro ao adicionar tarefa:", err));
         }
-
         button.addEventListener("click", adicionarTarefa);
         input.addEventListener("keypress", function (e) {
             if (e.key === "Enter") {
                 adicionarTarefa();
             }
         });
-    });
+
 

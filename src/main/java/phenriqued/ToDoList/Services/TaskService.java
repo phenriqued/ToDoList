@@ -1,6 +1,8 @@
 package phenriqued.ToDoList.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import phenriqued.ToDoList.DTOs.ToDoDTO.TaskDTO;
 import phenriqued.ToDoList.DTOs.ToDoDTO.TaskRequestDTO;
@@ -20,5 +22,7 @@ public class TaskService {
     }
 
 
-
+    public Page<TaskDTO> listAllToDo(Pageable pageable) {
+         return repository.findAllOrderByFavoriteTrue(pageable).map(TaskDTO::new);
+    }
 }

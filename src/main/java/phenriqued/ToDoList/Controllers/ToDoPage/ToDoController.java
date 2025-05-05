@@ -1,6 +1,9 @@
 package phenriqued.ToDoList.Controllers.ToDoPage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +13,7 @@ import phenriqued.ToDoList.DTOs.ToDoDTO.TaskDTO;
 import phenriqued.ToDoList.DTOs.ToDoDTO.TaskRequestDTO;
 import phenriqued.ToDoList.Services.TaskService;
 
-@Controller("/")
+@Controller
 public class ToDoController {
 
     @Autowired
@@ -24,8 +27,14 @@ public class ToDoController {
 
     @PostMapping
     @ResponseBody
-    public TaskDTO createTask(@RequestBody TaskRequestDTO taskRequestDTO){
-        return service.createTask(taskRequestDTO);
+    public void createTask(@RequestBody TaskRequestDTO taskRequestDTO){
+        service.createTask(taskRequestDTO);
+    }
+
+    @GetMapping("/ToDoList")
+    @ResponseBody
+    public Page<TaskDTO> listAllTask(@PageableDefault(size = 10)Pageable pageable){
+        return service.listAllToDo(pageable);
     }
 
 
