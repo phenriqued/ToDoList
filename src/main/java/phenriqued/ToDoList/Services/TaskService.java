@@ -23,6 +23,13 @@ public class TaskService {
 
 
     public Page<TaskDTO> listAllToDo(Pageable pageable) {
-         return repository.findAllOrderByFavoriteTrue(pageable).map(TaskDTO::new);
+        return repository.findAllOrderByFavoriteTrue(pageable).map(TaskDTO::new);
+    }
+
+    public void toggleFavorite(Long id) {
+        var task = repository.findById(id).orElseThrow();
+        Boolean favorite =! task.getFavorite();
+        task.setFavorite(favorite);
+        repository.flush();
     }
 }
