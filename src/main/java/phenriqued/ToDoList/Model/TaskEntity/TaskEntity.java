@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import phenriqued.ToDoList.DTOs.ToDoDTO.TaskRequestDTO;
 
+import java.time.LocalDateTime;
+
 @Entity(name = "TaskEntity")
 @Table(name = "tb_task")
 
@@ -25,10 +27,12 @@ public class TaskEntity {
     private Boolean done;
     @Setter
     private Boolean favorite;
+    private LocalDateTime createDateTime;
 
     public TaskEntity(TaskRequestDTO task) {
         this.text = task.task();
         this.done = false;
         this.favorite = false;
+        this.createDateTime = LocalDateTime.now();
     }
 }

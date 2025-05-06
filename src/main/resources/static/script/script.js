@@ -140,3 +140,5 @@
         lista.appendChild(div);
 
     }
+    //Carregar a lista a cada um hora
+    setInterval(carregarTarefas, 3600000);
