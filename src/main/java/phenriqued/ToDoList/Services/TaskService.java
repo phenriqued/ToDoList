@@ -32,4 +32,10 @@ public class TaskService {
         task.setFavorite(favorite);
         repository.flush();
     }
+
+    public void updateTask(Long id, TaskDTO taskDTO) {
+        var task = repository.findById(id).orElseThrow();
+        task.setText(taskDTO.task());
+        repository.flush();
+    }
 }

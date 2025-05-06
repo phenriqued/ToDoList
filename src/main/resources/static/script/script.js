@@ -10,25 +10,42 @@
     const input = document.getElementById("input-task");
     const button = document.getElementById("btn-add");
     const lista = document.getElementById("lista-tasks");
+    let updateTaskId = null;
 
     function adicionarTarefa() {
         const task = input.value.trim();
         if (task === "") return;
 
-        fetch("/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ task })
-        })
-        .then(() => {
-            adicionarElementoNaLista(task);
-            input.value = "";
-            carregarTarefas()
-        })
-        .catch(err => console.error("Erro ao adicionar tarefa:", err));
+        if (updateTaskId !== null) {
+
+            fetch(`/task/${updateTaskId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ task })
+            })
+            .then(() => {
+                carregarTarefas();
+                input.value = "";
+                updateTaskId = null;
+            })
+            .catch(err => console.error("Erro ao editar tarefa:", err));
+        }else{
+            fetch("/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ task })
+            })
+            .then(() => {
+                adicionarElementoNaLista(task);
+                input.value = "";
+                carregarTarefas()
+            })
+            .catch(err => console.error("Erro ao adicionar tarefa:", err));
+        }
     }
+
     button.addEventListener("click", adicionarTarefa);
     input.addEventListener("keypress", function (e) {
         if (e.key === "Enter") {
@@ -91,10 +108,9 @@
             const edit = document.createElement("span");
             edit.innerHTML = "✏️";
             edit.classList.add("task-edit");
-
             edit.addEventListener("click", () => {
                 document.getElementById("input-task").value = task;
-                //
+                updateTaskId = id;
             });
 
             // Lixeira

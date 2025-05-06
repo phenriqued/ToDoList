@@ -41,5 +41,12 @@ public class ToDoController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/task/{id}")
+    public ResponseEntity<Void> updateTask(@PathVariable Long id, @RequestBody TaskDTO taskDTO){
+        System.out.println(taskDTO.task());
+        service.updateTask(id, taskDTO);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
