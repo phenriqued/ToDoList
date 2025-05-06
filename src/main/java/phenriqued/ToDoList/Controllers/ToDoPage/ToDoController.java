@@ -7,9 +7,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 import phenriqued.ToDoList.DTOs.ToDoDTO.TaskDTO;
 import phenriqued.ToDoList.DTOs.ToDoDTO.TaskRequestDTO;
 import phenriqued.ToDoList.Services.TaskService;
+
+import java.net.URI;
 
 @Controller
 public class ToDoController {
@@ -25,8 +28,10 @@ public class ToDoController {
 
     @PostMapping
     @ResponseBody
-    public void createTask(@RequestBody TaskRequestDTO taskRequestDTO){
-        service.createTask(taskRequestDTO);
+    public ResponseEntity<Void> createTask(@RequestBody TaskRequestDTO taskRequestDTO, UriComponentsBuilder uriComponentsBuilder){
+        var task = service.createTask(taskRequestDTO);
+        URI uri = uriComponentsBuilder.path("/").buildAndExpand(task.id()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @GetMapping("/ToDoList")
