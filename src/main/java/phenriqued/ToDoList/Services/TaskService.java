@@ -8,6 +8,7 @@ import phenriqued.ToDoList.DTOs.ToDoDTO.TaskDTO;
 import phenriqued.ToDoList.DTOs.ToDoDTO.TaskRequestDTO;
 import phenriqued.ToDoList.Model.TaskEntity.TaskEntity;
 import phenriqued.ToDoList.Repositories.TaskRepository.TaskRepository;
+import phenriqued.ToDoList.infra.Exceptions.ToDoException;
 
 @Service
 public class TaskService {
@@ -27,20 +28,21 @@ public class TaskService {
     }
 
     public void toggleFavorite(Long id) {
-        var task = repository.findById(id).orElseThrow();
+        var task = repository.findById(id).orElseThrow(ToDoException::new);
         Boolean favorite =! task.getFavorite();
         task.setFavorite(favorite);
         repository.flush();
     }
 
     public void updateTask(Long id, TaskDTO taskDTO) {
-        var task = repository.findById(id).orElseThrow();
+        var task = repository.findById(id).orElseThrow(ToDoException::new);
         task.setText(taskDTO.task());
         repository.flush();
     }
 
     public void deleteTask(Long id) {
-        var task = repository.findById(id).orElseThrow();
+        var task = repository.findById(id).orElseThrow(ToDoException::new);
         repository.delete(task);
     }
+
 }
