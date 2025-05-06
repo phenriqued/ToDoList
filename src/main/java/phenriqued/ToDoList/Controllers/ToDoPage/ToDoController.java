@@ -43,8 +43,13 @@ public class ToDoController {
 
     @PutMapping("/task/{id}")
     public ResponseEntity<Void> updateTask(@PathVariable Long id, @RequestBody TaskDTO taskDTO){
-        System.out.println(taskDTO.task());
         service.updateTask(id, taskDTO);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/task/{id}/remove")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id){
+        service.deleteTask(id);
         return ResponseEntity.noContent().build();
     }
 

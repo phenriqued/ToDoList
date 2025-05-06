@@ -17,7 +17,6 @@
         if (task === "") return;
 
         if (updateTaskId !== null) {
-
             fetch(`/task/${updateTaskId}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
@@ -120,7 +119,9 @@
 
             trash.addEventListener("click", () => {
                 div.remove();
-                //
+                fetch(`/task/${id}/remove`,{
+                    method:"DELETE"
+                })
             });
 
         div.appendChild(checkbox);

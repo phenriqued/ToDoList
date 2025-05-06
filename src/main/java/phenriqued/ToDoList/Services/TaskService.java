@@ -38,4 +38,9 @@ public class TaskService {
         task.setText(taskDTO.task());
         repository.flush();
     }
+
+    public void deleteTask(Long id) {
+        var task = repository.findById(id).orElseThrow();
+        repository.delete(task);
+    }
 }
