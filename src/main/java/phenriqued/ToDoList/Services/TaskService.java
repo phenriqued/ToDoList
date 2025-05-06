@@ -27,21 +27,28 @@ public class TaskService {
         return repository.findAllOrderByFavoriteTrue(pageable).map(TaskDTO::new);
     }
 
+    public void markAsDone(Long id) {
+        var task = repository.findById(id).orElseThrow(() -> new ToDoException("could not find task id"));
+        Boolean done =! task.getDone();
+        task.setDone(done);
+        repository.flush();
+    }
+
     public void toggleFavorite(Long id) {
-        var task = repository.findById(id).orElseThrow(ToDoException::new);
+        var task = repository.findById(id).orElseThrow(() -> new ToDoException("could not find task id"));
         Boolean favorite =! task.getFavorite();
         task.setFavorite(favorite);
         repository.flush();
     }
 
     public void updateTask(Long id, TaskDTO taskDTO) {
-        var task = repository.findById(id).orElseThrow(ToDoException::new);
+        var task = repository.findById(id).orElseThrow(() -> new ToDoException("could not find task id to update"));
         task.setText(taskDTO.task());
         repository.flush();
     }
 
     public void deleteTask(Long id) {
-        var task = repository.findById(id).orElseThrow(ToDoException::new);
+        var task = repository.findById(id).orElseThrow(() -> new ToDoException("could not find task id to delete"));
         repository.delete(task);
     }
 

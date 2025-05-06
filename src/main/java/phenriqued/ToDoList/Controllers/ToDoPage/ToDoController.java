@@ -35,6 +35,12 @@ public class ToDoController {
         return service.listAllToDo(pageable);
     }
 
+    @PutMapping("/task/{id}/done")
+    public ResponseEntity<Void> markAsDone(@PathVariable Long id){
+        service.markAsDone(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @PutMapping("task/{id}/favorite")
     public ResponseEntity<Void> toggleFavorite(@PathVariable Long id){
         service.toggleFavorite(id);

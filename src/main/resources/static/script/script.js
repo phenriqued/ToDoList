@@ -85,16 +85,23 @@
         // Atualiza visual ao clicar no checkbox para o futuro do DONE
         checkbox.addEventListener("change", () => {
             label.style.textDecoration = checkbox.checked ? "line-through" : "none";
-            //
+            const id = div.getAttribute("data-id");
+            fetch(`/task/${id}/done`,{
+                method:"PUT"
+            })
+            .then(() => carregarTarefas())
+            .catch(err => console.error("Erro ao definir como concluído", err));
+
         });
+
          // Estrela
             const star = document.createElement("span");
             star.innerHTML = "⭐";
             star.classList.add("task-favorite");
-            if (favorite) star.classList.add("favorited");
+            //if (favorite) star.classList.add("favorited");
 
             star.addEventListener("click", () => {
-                star.classList.toggle("favorited");
+                star.classList.toggle("task-favorite");
                 const id = div.getAttribute("data-id");
                 fetch(`/task/${id}/favorite`,{
                     method:"PUT"
