@@ -1,5 +1,6 @@
 package phenriqued.ToDoList.Controllers.ToDoPage;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +29,7 @@ public class ToDoController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<Void> createTask(@RequestBody TaskRequestDTO taskRequestDTO, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<Void> createTask(@RequestBody @Valid TaskRequestDTO taskRequestDTO, UriComponentsBuilder uriComponentsBuilder){
         var task = service.createTask(taskRequestDTO);
         URI uri = uriComponentsBuilder.path("/").buildAndExpand(task.id()).toUri();
         return ResponseEntity.created(uri).build();
@@ -36,8 +37,8 @@ public class ToDoController {
 
     @GetMapping("/ToDoList")
     @ResponseBody
-    public Page<TaskDTO> listAllTask(@PageableDefault(size = 20)Pageable pageable){
-        return service.listAllToDo(pageable);
+    public ResponseEntity<Page<TaskDTO>> listAllTask(@PageableDefault(size = 20)Pageable pageable){
+        return ResponseEntity.ok(service.listAllToDo(pageable));
     }
 
     @PutMapping("/task/{id}/done")
@@ -53,7 +54,7 @@ public class ToDoController {
     }
 
     @PutMapping("/task/{id}")
-    public ResponseEntity<Void> updateTask(@PathVariable Long id, @RequestBody TaskDTO taskDTO){
+    public ResponseEntity<Void> updateTask(@PathVariable Long id, @RequestBody @Valid TaskDTO taskDTO){
         service.updateTask(id, taskDTO);
         return ResponseEntity.noContent().build();
     }

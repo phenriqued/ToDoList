@@ -1,10 +1,12 @@
 package phenriqued.ToDoList.DTOs.ToDoDTO;
 
 
+import jakarta.validation.constraints.NotBlank;
 import phenriqued.ToDoList.Model.TaskEntity.TaskEntity;
 
 public record TaskDTO(
         Long id,
+        @NotBlank(message = "A tarefa não pode ser vazia")
         String task,
         Boolean done,
         Boolean favorite) {
