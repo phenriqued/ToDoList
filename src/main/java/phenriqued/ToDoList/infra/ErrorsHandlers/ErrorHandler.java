@@ -1,5 +1,6 @@
 package phenriqued.ToDoList.infra.ErrorsHandlers;
 
+import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -17,8 +18,8 @@ public class ErrorHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ToDoException.class)
-    public String toDoExceptionHandler(ToDoException exception){
-        return "To Do [ERROR]: " + exception.getMessage();
+    public  ResponseEntity<String> toDoExceptionHandler(ToDoException exception){
+        return ResponseEntity.badRequest().body("To Do [ERROR]: " + exception.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
