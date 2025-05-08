@@ -87,7 +87,10 @@ As configurações padrão são definidas no arquivo <code>application.propertie
         </ul>
     </li>
 </ol>
+              
+## Licença
 
+Este projeto não possui uma licença específica. Sinta-se à vontade para usar o código como referência para seus estudos.
 <p>Feel Free :)</p>
 
 
